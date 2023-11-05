@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doBuild": "rollup src/*.js --format umd --name \"myBundle\" --file bundle.js",
+    "start": "npx rollup --config rollup.config.js && node build/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/express": "^4.17.20",
+    "@types/ws": "^8.5.8",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
+    "ws": "^8.14.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@stylistic/eslint-plugin-js": "^1.0.0",
+    "@types/node": "^20.8.10"
+  }
+}

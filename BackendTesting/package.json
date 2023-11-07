@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "standards": "file:../Standards",
+    "typescript": "^5.2.2",
     "ws": "^8.14.2"
-  }
+  },
+  "type": "module"
 }

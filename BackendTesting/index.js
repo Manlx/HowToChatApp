@@ -1,13 +1,20 @@
 import WebSocket from 'ws';
-import { Protocals } from 'standards';
 
-const mySocket = new WebSocket('ws://localhost:8081');
+const ws = new WebSocket('ws://localhost:8080');
 
 const data = {
   data: {
     message: 'Hi this is the message'
   },
-  protocal: Protocals.AllMessage
+  protocal: 'JoinUser'
 };
 
-mySocket.send(JSON.stringify(data));
+ws.on('error', console.error);
+
+ws.on('open', function open() {
+  ws.send(JSON.stringify(data));
+});
+
+ws.on('message', function message(data) {
+  console.log('received: %s', data);
+});

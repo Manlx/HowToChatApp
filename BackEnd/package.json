@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "doBuild": "rollup src/*.js --format umd --name \"myBundle\" --file bundle.js",
-    "start": "npx rollup --config rollup.config.js && node build/server.js"
+    "start": "npx rollup --config rollup.config.js && node build/index.js"
   },
   "author": "",
   "license": "ISC",

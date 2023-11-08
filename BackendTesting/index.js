@@ -4,7 +4,7 @@ const ws = new WebSocket('ws://localhost:8080');
 
 const data = {
   data: {
-    message: 'Hi this is the message'
+    name: 'Manuel.exe'
   },
   protocal: 'JoinUser'
 };

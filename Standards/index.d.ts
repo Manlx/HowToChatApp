@@ -31,9 +31,29 @@ export interface IMessageHandlerCollection{
 
 }
 
+export interface IMessageBody{
+  Message: string;
+}
+
+export interface IAllMessage{
+  Message: IMessageBody
+}
+
+export interface IJoinUser{
+  NewParticipant: IParticipant
+}
+
+export interface IDirectMessage{
+  From: IParticipant
+  To: IParticipant
+  Body: IMessageBody
+}
+
+export type IMessageDataType = (IJoinUser | IAllMessage | IDirectMessage)
+
 export interface IMessageProtocal{
   protocal: Protocals;
-  data: string|object;
+  data: IMessageDataType;
 }
 
 export interface IChatManager{

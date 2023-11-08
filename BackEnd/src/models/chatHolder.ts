@@ -10,31 +10,43 @@ export class WssWrapper implements IWssWrapper{
   roomDescription = '';
   wss: WebSocketServer;
   particpants: IParticipant[];
+
+  JoinUser(Data: object) {
+    console.log('User joined');
+
+    this.particpants.push(Data as IParticipant);
+
+    console.log(this.particpants);
+  }
+
+  AllMessage(Data:object){
+    
+  }
   
   constructor(port:number = 8080, roomId = 0, roomDescription = 'New Chatroom'){
     this.particpants = [];
 
     this.wss = new WebSocketServer({
       port: port,
-      // perMessageDeflate: {
-      //   zlibDeflateOptions: {
-      //     // See zlib defaults.
-      //     chunkSize: 1024,
-      //     memLevel: 7,
-      //     level: 3
-      //   },
-      //   zlibInflateOptions: {
-      //     chunkSize: 10 * 1024
-      //   },
-      //   // Other options settable:
-      //   clientNoContextTakeover: true, // Defaults to negotiated value.
-      //   serverNoContextTakeover: true, // Defaults to negotiated value.
-      //   serverMaxWindowBits: 10, // Defaults to negotiated value.
-      //   // Below options specified as default values.
-      //   concurrencyLimit: 10, // Limits zlib concurrency for perf.
-      //   threshold: 1024 // Size (in bytes) below which messages
-      //   // should not be compressed if context takeover is disabled.
-      // }
+      perMessageDeflate: {
+        zlibDeflateOptions: {
+          // See zlib defaults.
+          chunkSize: 1024,
+          memLevel: 7,
+          level: 3
+        },
+        zlibInflateOptions: {
+          chunkSize: 10 * 1024
+        },
+        // Other options settable:
+        clientNoContextTakeover: true, // Defaults to negotiated value.
+        serverNoContextTakeover: true, // Defaults to negotiated value.
+        serverMaxWindowBits: 10, // Defaults to negotiated value.
+        // Below options specified as default values.
+        concurrencyLimit: 10, // Limits zlib concurrency for perf.
+        threshold: 1024 // Size (in bytes) below which messages
+        // should not be compressed if context takeover is disabled.
+      }
     });
 
     this.port = port;
@@ -53,15 +65,18 @@ export class WssWrapper implements IWssWrapper{
           
           AllMessage: (Data)=>{
             
+            console.log('All Message Received:');
             console.log(Data);
           },
+
           DirectMessage: (Data) => {
-
+            
+            console.log('DirectMessage Received:');
             console.log(Data);
           },
-          JoinUser: (Data) => {
 
-            console.log(Data);
+          JoinUser: (Data: object) => {
+            this.JoinUser(Data);
           }
         });
       });
@@ -77,6 +92,7 @@ export class ChatManager implements IChatManager{
 
   startingPort:number = 8080;
   chatrooms: IWssWrapper[];
+  startinID: number = 0;
 
   constructor(){
     this.chatrooms = [];
@@ -111,7 +127,7 @@ export class ChatManager implements IChatManager{
   createRoom(){
 
     this.chatrooms.push(new WssWrapper(this.startingPort + this.chatrooms.length));
-    
+    console.log(this.chatrooms[0].particpants);
     return this.chatrooms[this.chatrooms.length-1];
   }
 
